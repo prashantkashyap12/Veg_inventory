@@ -1,0 +1,529 @@
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+  <div class="page-content">
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="page-title-box d-sm-flex align-items-center justify-content-between"
+          >
+            <h4 class="mb-sm-0 font-size-18">Order Booking</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+
+      <!-- Customer Form Start-->
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-body">
+              <div
+                aria-live="polite"
+                aria-atomic="true"
+                class="d-flex justify-content-end"
+                [ngClass]="AlertView ? 'd-block' : 'd-none'"
+              >
+                <div
+                  class="toast fade show align-items-center text-white bg-success border-0"
+                  role="alert"
+                  aria-live="assertive"
+                  aria-atomic="true"
+                >
+                  <div class="d-flex justify-content-end">
+                    <div class="toast-body">Record has been submited !!!</div>
+                    <button
+                      type="button"
+                      class="btn-close btn-close-white me-2 m-auto"
+                      data-bs-dismiss="toast"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                </div>
+              </div>
+
+              <h4 class="card-title">Update Order</h4>
+              <p class="card-title-desc">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+                ab?
+              </p>
+              <form class="needs-validation" novalidate #datalogin="ngForm">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="orderBill" class="form-label"
+                        >Bill Number</label
+                      >
+                      <div class="d-flex">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="orderBill"
+                          name="billNumber"
+                          [(ngModel)]="billNumber"
+                          placeholder="Auto Genrated"
+                          required
+                        />
+                        &nbsp;&nbsp;<button
+                          type="button"
+                          class="btn btn-primary"
+                          (click)="searchOrder()"
+                        >
+                          Search
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5"></div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="orderdate" class="form-label"
+                        >Auto Date & Time</label
+                      >
+                      <div class="d-flex">
+                        <input
+                          type="date"
+                          class="form-control"
+                          [(ngModel)]="currentDate"
+                          disabled="true"
+                          id="orderdate"
+                          name="currentDate"
+                          placeholder="Date"
+                          required
+                        />&nbsp;&nbsp;
+                        <input
+                          type="time"
+                          class="form-control"
+                          [(ngModel)]="currentTime"
+                          id="orderdate"
+                          disabled="true"
+                          name="currentTime"
+                          placeholder="Date"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <form [formGroup]="customerForm">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="mb-3">
+                        <div class="mb-3">
+                          <label for="OrderName" class="form-label"
+                            >First Name</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="firstName"
+                            name="firstName"
+                            id="OrderName"
+                            placeholder="Auto Name"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="mb-3">
+                        <label for="OrderName" class="form-label"
+                          >Last Name</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="OrderName"
+                          placeholder="Auto Name"
+                          formControlName="lastName"
+                          name="lastName"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="mb-3">
+                        <label for="OrderContact" class="form-label"
+                          >Contact</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="OrderContact"
+                          formControlName="contact"
+                          name="contact"
+                          placeholder="Auto Contact"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="mb-3">
+                        <label for="orderWallet" class="form-label"
+                          >Wallet</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="orderWallet"
+                          placeholder="Auto Wallet"
+                          formControlName="wallet"
+                          name="wallet"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="mb-3">
+                        <label for="orderBox" class="form-label">Box</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="orderBox"
+                          placeholder="Auto Box"
+                          formControlName="box"
+                          name="box"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="mb-3">
+                        <label for="orderCustomAdd" class="form-label"
+                          >Address</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="orderCustomAdd"
+                          placeholder="Auto Address"
+                          formControlName="address"
+                          name="address"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+                <div class="row">
+                  <hr style="border-top: 1px dashed rgb(58, 58, 58)" />
+                  <div class="col-md-12">
+                    <table class="table table-bordered text-center">
+                      <tbody class="table-dark">
+                        <tr>
+                          <th>Sr.</th>
+                          <th>Product Name</th>
+                          <th>Box/Nug</th>
+                          <th>Total Weight(KG/grm)</th>
+                          <th>Goods Wight</th>
+                          <th>Total Bill</th>
+                        </tr>
+                      </tbody>
+                      <tbody>
+                        <tr [formGroup]="productForm">
+                          <td>1.</td>
+                          <td>
+                            <select
+                              formControlName="productName"
+                              name="productName"
+                              id=""
+                              class="form-select"
+                            >
+                              <option [ngValue]="null">Select Product</option>
+                              <option
+                                *ngFor="let product of productList"
+                                [ngValue]="product.id"
+                              >
+                                {{ product.productName }}
+                              </option>
+                            </select>
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              formControlName="box"
+                              name="box"
+                              class="form-control"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              (change)="calculateGoodsWeight()"
+                              formControlName="totalWeight"
+                              name="totalWeight"
+                              class="form-control"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              formControlName="goodsWeight"
+                              name="goodsWeight"
+                              class="form-control"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              formControlName="totalBill"
+                              name="totalBill"
+                              class="form-control"
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <hr style="border-top: 1px dashed rgb(58, 58, 58)" />
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4
+                      class="card-title pb-2 text-center text-decoration-underline fs-5 fw-bold"
+                    >
+                      - - KHATA ENTRY - -
+                    </h4>
+                    <form [formGroup]="productForm">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <input
+                            type="text"
+                            name="payAmount"
+                            formControlName="payAmount"
+                            id="payAmount"
+                            placeholder="Pay Amount"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="col-md-3">
+                          <button
+                            class="btn btn-primary"
+                            type="button"
+                            (click)="calculateDueBill()"
+                          >
+                            Calculate Due Amount
+                          </button>
+                        </div>
+                        <div class="col-md-3">
+                          <input
+                            type="text"
+                            name="submitBox"
+                            formControlName="submitBox"
+                            id="submitBox"
+                            placeholder="Submit Box"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="col-md-3">
+                          <button
+                            class="btn btn-primary"
+                            type="button"
+                            (click)="updateBoxCount()"
+                          >
+                            Calculate Due Box
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                    <form [formGroup]="customerForm">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="p-3">
+                            <b for="">
+                              Total Due Amount:
+                              {{ customerForm?.get("wallet")?.value }}/-</b
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                        <div class="col-md-3">
+                          <div class="p-3">
+                            <b for=""
+                              >Total Due Box
+                              {{ customerForm?.get("box")?.value }}/Nug</b
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    <!-- <br> -->
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    data-bs-toggle="modal"
+                    data-bs-target=".transaction-detailModal"
+                    (click)="saveOrder()"
+                  >
+                    Save & Print
+                  </button>
+                  <button class="btn btn-danger" type="reset">Clear</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- end card -->
+        </div>
+        <!-- end col -->
+
+        <!-- end row -->
+      </div>
+      <!-- Customer Form End-->
+    </div>
+    <!-- container-fluid -->
+  </div>
+  <!-- End Page-content -->
+
+  <!-- Transaction Modal -->
+  <div
+    class="modal fade transaction-detailModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="transaction-detailModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="transaction-detailModalLabel">
+            Order Details
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <table class="custom">
+            <tr>
+              <th>Bill Number</th>
+              <td>
+                <p>{{ this.billNumber }}</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Today Date</th>
+              <td>
+                <p>{{ this.currentDate }}</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Today Time</th>
+              <td>
+                <p>{{ currentTime }}</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Name</th>
+
+              <td>
+                <p>
+                  {{ customerForm?.get("firstName")?.value
+                  }}{{ customerForm?.get("lastName")?.value }}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>Contact</th>
+              <td>
+                <p>{{ customerForm?.get("contact")?.value }}</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Product Name</th>
+              <td>
+                <p>{{ productForm?.get("productName")?.value }}</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Nug/Box</th>
+              <td>
+                <p>{{ productForm?.get("box")?.value }}</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Weight(Kg)</th>
+              <td>
+                <p>{{ productForm?.get("goodsWeight")?.value }}(Kg)</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Net Payment</th>
+              <td>
+                <p>{{ productForm?.get("totalBill")?.value }}</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Due Payment(Wallet)</th>
+              <td>
+                <p>{{ customerForm?.get("wallet")?.value }}</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Due Box(History)</th>
+              <td>
+                <p>{{ customerForm?.get("box")?.value }}</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Received Payment</th>
+              <td>
+                <p>{{ productForm?.get("payAmount")?.value }}</p>
+              </td>
+            </tr>
+            <tr>
+              <th>Received Box</th>
+              <td>
+                <p>{{ productForm?.get("submitBox")?.value }}</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+            Print
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="closeModal()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          © .
+        </div>
+        <div class="col-sm-6">
+          <div class="text-sm-end d-none d-sm-block">
+            Design & Develop - by Shree Ram
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+<!-- end main content-->

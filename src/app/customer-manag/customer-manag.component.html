@@ -1,0 +1,326 @@
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+  <div class="page-content">
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="page-title-box d-sm-flex align-items-center justify-content-between"
+          >
+            <h4 class="mb-sm-0 font-size-18">Customer Management</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+
+      <!-- Customer Form Start-->
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-body">
+              <div
+                aria-live="polite"
+                aria-atomic="true"
+                class="d-flex justify-content-end"
+                [ngClass]="AlertView ? 'd-block' : 'd-none'"
+              >
+                <div
+                  class="toast fade show align-items-center text-white bg-success border-0"
+                  role="alert"
+                  aria-live="assertive"
+                  aria-atomic="true"
+                >
+                  <div class="d-flex justify-content-end">
+                    <div class="toast-body">Record has been submited !!!</div>
+                    <button
+                      type="button"
+                      class="btn-close btn-close-white me-2 m-auto"
+                      data-bs-dismiss="toast"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                </div>
+              </div>
+
+              <h4 class="card-title">
+                {{ btndataView ? " Add New Customer" : "Edit Record Customer" }}
+              </h4>
+              <p class="card-title-desc">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+                ab?
+              </p>
+
+              <form
+                class="needs-validation"
+                #datalogin="ngForm"
+                (ngSubmit)="dataSend(datalogin.value)"
+              >
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="validationCustom01" class="form-label"
+                        >First name</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="validationCustom01"
+                        placeholder="First name"
+                        name="firstName"
+                        ngModel
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="validationCustom02" class="form-label"
+                        >Last name</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="validationCustom02"
+                        placeholder="Last name"
+                        name="LastName"
+                        ngModel
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="validationCustomContact" class="form-label"
+                        >Contact</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="validationCustomContact"
+                        placeholder="Contact"
+                        name="custContact"
+                        ngModel
+                        required
+                        maxlength="10"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="validationCustomAltContact" class="form-label"
+                        >Altranet Contact</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="validationCustomAltContact"
+                        placeholder="Alt. Contact"
+                        name="altcontact"
+                        ngModel
+                        required
+                        maxlength="10"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="mb-3">
+                      <label for="validationWallet" class="form-label"
+                        >Wallet</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="validationWallet"
+                        placeholder="Wallet"
+                        name="Wallet"
+                        ngModel
+                        required
+                        minlength="8"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="mb-3">
+                      <label for="validationBox" class="form-label">Box</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="validationBox"
+                        placeholder="Box"
+                        name="custBox"
+                        ngModel
+                        required
+                        minlength="6"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="mb-3">
+                      <label for="validationCustomAdd" class="form-label"
+                        >Address</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="validationCustomAdd"
+                        placeholder="Complete Address"
+                        name="custAddres"
+                        ngModel
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="validationCustomAdd" class="form-label"
+                      >Land-mark</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validationCustomAdd"
+                      placeholder="Land-mark"
+                      name="custlandMark"
+                      ngModel
+                      required
+                    />
+                  </div>
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="validationCustom04" class="form-label"
+                        >City</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="validationCustom04"
+                        placeholder="City"
+                        name="custCity"
+                        ngModel
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="invalidCheck"
+                    required
+                  />
+                  <label class="form-check-label" for="invalidCheck">
+                    Agree to terms and conditions
+                  </label>
+                  <div class="invalid-feedback">
+                    You must agree before submitting.
+                  </div>
+                </div>
+                <div>
+                  <button
+                    class="btn"
+                    type="submit"
+                    [ngClass]="btndataView ? 'btn-success' : 'btn-warning'"
+                    [disabled]="!datalogin.form.valid"
+                  >
+                    {{ btndataView ? "Add Record" : "Update Record" }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- end card -->
+        </div>
+        <!-- end col -->
+
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="mb-sm-0 font-size-16">Active Customer</h4>
+              <table class="table table-bordered text-center mt-2 w-100">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Sr.</th>
+                    <td>UserId</td>
+                    <th>Name</th>
+                    <th>Last Name</th>
+                    <th>Contact</th>
+                    <th>Alt Contact</th>
+                    <th>Wallet</th>
+                    <th>Box</th>
+                    <th>Address</th>
+                    <th>Land-mark</th>
+                    <th>City</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let data of dataTable; index as i">
+                  <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.firstName }}</td>
+                    <td>{{ data.LastName }}</td>
+                    <td>{{ data.custContact }}</td>
+                    <td>{{ data.altcontact }}</td>
+                    <td>{{ data.Wallet }}</td>
+                    <td>{{ data.custBox }}</td>
+                    <td>{{ data.custAddres }}</td>
+                    <td>{{ data.custlandMark }}</td>
+                    <td>{{ data.custCity }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn text-success"
+                        (click)="edit(i, data.id)"
+                      >
+                        <i class="fab bx bxs-pencil"></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn text-danger"
+                        (click)="del(data.id, i)"
+                      >
+                        <i class="fab bx bxs-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- Customer Form End-->
+    </div>
+    <!-- container-fluid -->
+  </div>
+  <!-- End Page-content -->
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          © .
+        </div>
+        <div class="col-sm-6">
+          <div class="text-sm-end d-none d-sm-block">
+            Design & Develop - by Shree Ram
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+<!-- end main content-->

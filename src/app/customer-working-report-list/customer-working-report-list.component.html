@@ -1,0 +1,367 @@
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+  <div class="page-content">
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="page-title-box d-sm-flex align-items-center justify-content-between"
+          >
+            <h4 class="mb-sm-0 font-size-18">Recent Order -</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+
+      <!-- Last Transction -->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <h4 class="card-title mb-4">Latest Order</h4>
+                <form
+                  action=""
+                  #datalogin="ngForm"
+                  (ngSubmit)="searchOrder(datalogin.value)"
+                >
+                  <div class="d-flex pb-2">
+                    <div class="d-flex bg-light rounded shadow-sm p-2">
+                      <span class="m-auto text-dark">From</span> &nbsp;&nbsp;
+                      <input
+                        type="Date"
+                        class="form-control"
+                        [(ngModel)]="fromDate"
+                        name="fromDate"
+                        placeholder="Search By Date"
+                      />&nbsp;&nbsp;
+                      <span class="m-auto text-dark">To</span> &nbsp;&nbsp;
+                      <input
+                        type="Date"
+                        [(ngModel)]="toDate"
+                        name="toDate"
+                        class="form-control"
+                        placeholder="Search By Date"
+                      />
+                    </div>
+                    &nbsp;&nbsp;
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="searchName"
+                      name="searchName"
+                      placeholder="Search By Name"
+                    />&nbsp;&nbsp;
+                    <select
+                      [(ngModel)]="searchStatus"
+                      name="searchStatus"
+                      searchName
+                      class="form-control"
+                    >
+                      <option value="null" disabled>Select Status</option>
+                      <option value="Fully Paid">Fully Paid</option>
+                      <option value="Not Paid">Not Paid</option>
+                      <option value="Due Pay">Due Pay</option></select
+                    >&nbsp;&nbsp;
+                    <button
+                      class="btn btn-success"
+                      [disabled]="!datalogin.form.valid"
+                      type="submit"
+                    >
+                      Search
+                    </button>
+                    <button
+                      class="btn btn-secondary mx-3"
+                      [disabled]="!datalogin.form.valid"
+                      type="button"
+                      (click)="clearFilter(datalogin.value)"
+                    >
+                      Clear
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table align-middle table-nowrap mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th style="width: 20px">
+                        <div class="form-check font-size-16 align-middle">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="transactionCheck01"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="transactionCheck01"
+                          ></label>
+                        </div>
+                      </th>
+                      <th class="align-middle">S.No</th>
+                      <th class="align-middle">Bill Number</th>
+                      <th class="align-middle">Date</th>
+                      <th class="align-middle">Customer Name</th>
+                      <th class="align-middle">Product Name</th>
+                      <th class="align-middle">Nug/Box</th>
+                      <th class="align-middle">Total Weight(kg)</th>
+                      <th class="align-middle">Goods Weight(kg)</th>
+                      <th class="align-middle">Net Payment</th>
+                      <th class="align-middle">Received Payment</th>
+                      <th class="align-middle">Received Box</th>
+                      <th class="align-middle">Payment Status</th>
+                      <th class="align-middle">View Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let order of datatable; let i = index">
+                      <td>
+                        <div class="form-check font-size-16">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="transactionCheck02"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="transactionCheck02"
+                          ></label>
+                        </div>
+                      </td>
+                      <td>{{ i + 1 }}</td>
+                      <td>
+                        <a
+                          href="javascript: void(0);"
+                          class="text-body fw-bold"
+                          >{{ order.orderId }}</a
+                        >
+                      </td>
+                      <td>
+                        {{ order.autoDate | date }} -- {{ order.autoTime }}
+                        
+                      </td>
+                      <td>{{ order.name }}</td>
+                      <td>{{ order.prodName }}</td>
+
+                      <td>
+                        <i class="fab bx bxs-inbox me-1"></i>
+                        {{ order.items[0].boxNug }}
+                      </td>
+                      <td>{{ order.items[0].totalWeight }}(kg)</td>
+                      <td>{{ order.items[0].goodsWeight }}(kg)</td>
+                      <td>{{ order.items[0].totalBill }} ₹</td>
+                      <td>
+                        <span *ngIf="order.items[0].payAmount"
+                          >{{ order.items[0].payAmount }} ₹</span
+                        >
+                        <span *ngIf="!order.items[0].payAmount">-</span>
+                      </td>
+                      <td>
+                        <span *ngIf="order.items[0].submitBox"
+                          >{{ order.items[0].submitBox }}
+                        </span>
+                        <span *ngIf="!order.items[0].submitBox">-</span>
+                      </td>
+                      <td>
+                        <span
+                          *ngIf="order.status == 'Fully Paid'"
+                          class="badge badge-pill badge-soft-success font-size-11"
+                          >Fully Paid</span
+                        >
+                        <span
+                          *ngIf="order.status == 'Not Paid'"
+                          class="badge badge-pill badge-soft-danger font-size-11"
+                          >Not Paid</span
+                        >
+                        <span
+                          *ngIf="order.status == 'Due Pay'"
+                          class="badge badge-pill badge-soft-warning font-size-11"
+                          >Due Pay</span
+                        >
+                      </td>
+                      <td>
+                        <!-- Button trigger modal -->
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-sm btn-rounded waves-effect waves-light"
+                          data-bs-toggle="modal"
+                          data-bs-target=".transaction-detailModal"
+                          (click)="viewOrder(order)"
+                        >
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="datatable?.length === 0">
+                      <td colspan="15" class="text-center text-dark">
+                        No Data Found
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot class="table-success" style="border-top: 2px solid #a1a1a1;"  >
+                    <tr>
+                      <th class="align-middle text-center" colspan="6">Grand Total Result :</th>
+                      <th class="align-middle">{{calculateTotalResultNug()}}</th>
+                      <th class="align-middle">Result Weight(kg)</th>
+                      <th class="align-middle">{{TotalgoodsWeight()}}(Kg)</th>
+                      <th class="align-middle">{{TotalnetPayment()}}</th>
+                      <th class="align-middle">{{TotalResivdPay()}}</th>
+                      <th class="align-middle">{{TotalResivdBox()}}</th>
+                      <th class="align-middle">--</th>
+                      <th class="align-middle">--</th>
+                    </tr>
+                    <tr >
+                      <th colspan="10">
+                        <button class="btn btn-outline-success" (click)="downloadExcel()">Download Table (Excel)</button> &nbsp;
+                      </th>
+                      <td colspan="2" class="h5">Total Paymeny Due: <b></b> {{TotalnetPayment() - TotalResivdPay()}}</td>
+                      <td colspan="2" class="h5">Total Box Due: {{calculateTotalResultNug() - TotalResivdBox()}}</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- end table-responsive -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- container-fluid -->
+  </div>
+  <!-- End Page-content -->
+
+  <!-- Transaction Modal -->
+  <div
+    class="modal fade transaction-detailModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="transaction-detailModalLabel"
+    aria-hidden="true"
+  >
+    <div
+      class="modal-dialog modal-dialog-centered print-section"
+      role="document"
+    >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="transaction-detailModalLabel">
+          Order Details
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <!-- print Foramte -->
+      <div class="modal-body">
+        <div id="ticket" style="width: 100%;">
+          &nbsp;
+          <div style="text-align: center;border-bottom: 1px dotted #383737;">
+            <img src="../../assets/images/logo.png" alt="Logo" height="100px">
+            <p class="centered"><span class="h4 fw-bold text-decration-underline">Munan Foods Private Limited</span>
+            <br>- Fruit Merchant, Commission Agent & Supplier -<br>A.P.M.C Sinkdra Agra - Contact: 8630034542
+            <br><b>CIN No:</b> U1549UP2020OTC1267, <b>GST No:</b> 09AANCM3562F1Z8
+            </p>
+          </div>
+          <table class="m-0 m-auto border-1">
+              <tbody>
+                  <tr>
+                      <th>Order Date</th>
+                      <td>: {{viewOrderDetail?.autoDate}} :: {{viewOrderDetail?.autoTime}}</td>
+                  </tr>
+                  <tr>
+                      <th>Bill Number</th>
+                      <td>: {{viewOrderDetail?.orderId}}</td>
+                  </tr>
+                <tr>
+                  <th>Name</th>
+                  <td>: {{viewOrderDetail?.name}} :: ({{viewOrderDetail?.contact}})</td>
+                </tr>
+                
+                <tr>
+                  <th>Product Name</th>
+                  <td>: {{viewOrderDetail?.prodName}}</td>
+                </tr>
+                <tr>
+                  <th>Nug/Box</th>
+                  <td>: {{viewOrderDetail?.items[0].boxNug}}</td>
+                </tr>
+                <tr>
+                  <th>Total Weight(Kg)</th>
+                  <td>: {{viewOrderDetail?.items[0].totalWeight}}</td>
+                </tr>
+                <tr>
+                  <th>Goods Weight(Kg)</th>
+                  <td>: {{viewOrderDetail?.items[0].goodsWeight}}</td>
+                </tr>
+                <tr>
+                  <th>Net Payment</th>
+                  <td>: {{viewOrderDetail?.items[0].totalBill}}</td>
+                </tr>
+                <tr style="border-top: 2px double #cac8c8;">
+                  <th>Received Payment</th>
+                  <td>: {{viewOrderDetail?.items[0].payAmount}}</td>
+                </tr>
+                <tr>
+                  <th>Received Box</th>
+                  <td>: {{viewOrderDetail?.items[0].submitBox}}</td>
+                </tr>
+                <tr style="border-top: 2px double #cac8c8;">
+                  <th>Due Payment(Wallet)</th>
+                  <td>: {{viewOrderDetail?.wallet}}</td>
+                </tr>
+                <tr>
+                  <th>Due Box(History)</th>
+                  <td>: {{ viewOrderDetail?.box }}</td>
+                </tr>
+              </tbody>
+          </table>
+          <div class="text-center py-2" style="border-top: 1px dotted #383737;border-bottom: 1px dotted #383737;"><b>* * * * * Thanks for your purchase! * * * * * * *</b><br><span class="fw-bold" style="font-size: 10px;" >Develop by - Aditya Software (8865080562)</span ></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          (click)="printPage()"
+          class="btn btn-primary"
+          data-bs-dismiss="modal">
+          Print
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          © .
+        </div>
+        <div class="col-sm-6">
+          <div class="text-sm-end d-none d-sm-block">
+            Design & Develop - by Shree Ram
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+<!-- end main content-->
